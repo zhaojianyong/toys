@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<body style="margin:auto; text-align:center; background-color: darkgrey">
+    <div style="margin: 20px">
+        <span id="letter" style="font-size:10em; border-style:dotted; border-width:2px"></span>
+        <span id="input" style="font-size:10em; background-color: gray"></span>
+        <span id="result" style="font-size:5em;"> </span>
+    </div>
+    <div style="margin: 20px">
+        <span id="ok" style="font-size:8em; background-color:green">0</span>
+        <span id="error" style="font-size:8em; background-color:red">0</span>
+    </div>
+
+    <script>
+        var char = null;
+        var ok = 0;
+        var error = 0;
+
+        var inGaming = false;
+
+        var chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+        window.onkeydown = function () {
+            if (inGaming) {
+                inGaming = false;
+
+                var inputChar = String.fromCharCode(event.keyCode);
+
+                document.getElementById("input").innerText = inputChar;
+
+                if (inputChar.toUpperCase() == char.toUpperCase()) {
+                    document.getElementById("result").innerText = '\u2714';
+                    document.getElementById("result").style.backgroundColor = 'green';
+                    ok++;
+                } else {
+                    document.getElementById("result").innerText = '\u2716';
+                    document.getElementById("result").style.backgroundColor = 'red';
+                    error++;
+                }
+
+                document.getElementById("ok").innerText = ok
+                document.getElementById("error").innerText = error;
+            }
+
+            setTimeout(init, 0);
+        }
+
+
+        function init() {
+            var randomIndex= Math.round(Math.random() * 25);
+            char = chars[randomIndex];
+            if (Math.random() > 0.5) {
+                char = char.toLocaleLowerCase();
+            }
+
+            document.getElementById("letter").innerText = char;
+            document.getElementById("input").innerText = '';
+            document.getElementById("result").innerText = '';
+
+            inGaming = true;
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>
